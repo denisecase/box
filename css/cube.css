@@ -1,0 +1,175 @@
+/* Example of a Media Query for smaller screens */
+/*@media screen and (max-width: 100px) {
+  .gap-control-row,
+  .rotation-control-row {
+    flex-direction: column;
+  }
+  .gap-control-row label,
+  .rotation-control-row label {
+    width: 90%;
+    margin: 10px auto;
+  }
+}*/
+
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Full viewport height */
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+header {
+  display: flex;
+  align-items: center; /* Centers vertically */
+  justify-content: center; /* Centers horizontally */
+  padding: 10px;
+}
+
+header h1 {
+  text-align: center; /* Keeps text centered */
+  margin-left: 10px; /* space between image and h1 text */
+}
+
+#header-logo {
+  height: 100px;
+  width: auto; /* Maintain aspect ratio */
+}
+
+#canvas-container {
+  flex-grow: 0; /* Allow container to grow and push the footer down */
+  display: flex;
+  justify-content: center; /* Center canvas horizontally */
+  align-items: center; /* Center canvas vertically */
+}
+
+canvas {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* Sticky footer styles - always visible */
+
+footer {
+  display: flex;
+  flex-wrap: wrap; /* wrap onto the next line if needed */
+  justify-content: space-evenly;
+  align-items: center; /* Align items vertically */
+  padding: 10px 20px;
+  position: fixed; /* Stick to the bottom of the viewport */
+  bottom: 0;
+  left: 0; 
+  width: 100%;
+  background-color: #333;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+}
+
+footer section,
+footer a {
+  display: flex;
+  align-items: center; /* Align items vertically inside each link */
+  margin: 0; /* Remove default margin */
+  flex: 1; /* each item can grow and take available space */
+  min-width: 50%; /* Minimum width for each item before wrapping */
+  justify-content: center; /* Center content within each flex item */
+}
+
+footer a {
+  color: #fff;
+  text-decoration: none;
+}
+
+footer img {
+  height: 30px;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+/* Styles for Animation Controls */
+
+.animation-controls {
+  text-align: center;
+  padding: 20px 0;
+  background-color: #444;
+  color: white;
+}
+
+.animation-controls label {
+  margin: 0 10px;
+  font-size: 16px;
+}
+
+.animation-controls input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+/* Styles for Gap Controls */
+
+.gap-control-row {
+  display: flex;
+  flex-wrap: wrap; /* Allows items to wrap onto the next line if needed */
+  align-items: center; /* Aligns items vertically */
+  justify-content: center; /* Centers items horizontally */
+  padding: 20px 0;
+  background-color: #555;
+  color: white;
+  text-align: center;
+}
+
+.gap-control-row > span {
+  margin: 0 5px; /* Space around the 'Gap:' label and 'to' */
+}
+
+.slider-container {
+  display: flex;
+  flex-wrap: wrap; /* Allow sliders to wrap onto the next line if needed */
+  justify-content: center; /* Center the items */
+  gap: 10px; /* Space between label and slider */
+  width: 100%; /* Full width */
+
+}
+
+.slider-container input[type="range"] {
+  margin: 0 10px; /* Space around each slider */
+}
+
+/* Styles for Rotation Control */
+
+.rotation-control-row {
+  display: flex;
+  flex-wrap: wrap; /* Allows items to wrap onto the next line if needed */
+  justify-content: space-around; /* Distributes space evenly */
+  padding: 10px 0;
+  background-color: #666;
+  color: white;
+}
+
+.rotation-control-row .rotation-control {
+  display: flex; /* Enables Flexbox for the control */
+  align-items: center; /* Aligns items vertically */
+  flex: 1; /* Allows each control to grow and take available space */
+  margin: 5px; /* Adds a small margin around each control */
+  justify-content: center; /* Center content within each control */
+}
+
+.rotation-control-row label {
+  display: flex; /* Flex layout for label contents */
+  align-items: center; /* Aligns label text and input/slider/output */
+  margin-right: 10px; /* Space between label and the next item */
+}
+
+.rotation-control-row input[type="range"] {
+  margin: 0 10px; /* Space around the slider */
+}
+
+.rotation-control-row output {
+  margin-left: 10px; /* Space between slider and output */
+}
+input[type="range"],
+input[type="checkbox"] {
+  cursor: pointer; /* Indicates interactivity */
+}
