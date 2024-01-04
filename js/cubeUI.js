@@ -87,7 +87,7 @@ function setupCubeGroup() {
 function createCubes() {
   // The size of the single box
 
-  const boxX = 3
+  const boxX = 1
   const boxY = 2
   const boxZ = 6
 
