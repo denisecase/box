@@ -52,8 +52,8 @@ export let cubeGroup;
 export function initCubeGroup() {
   setupCubeGroup();
   createCubes();
-  positionCubes();
-  lowerCubeGroup(); // Adjusts cube group's position
+  //positionCubes();
+  //lowerCubeGroup(); // Adjusts cube group's position
   alignCubeGroup(); // Aligns cube group to desired orientation
 }
 
@@ -82,43 +82,34 @@ function setupCubeGroup() {
 }
 
 /**
- * Creates a set of colored cubes and adds them to the cube group.
- *
- * This function generates a series of 3D cubes, each with a unique color, and adds them to the cube group.
- * The cubes are created using a nested loop structure to vary their color and position.
+ * Creates a single box.
  */
 function createCubes() {
-  // The size of each cube, as defined in the cube settings.
-  const cubeSize = cubeSettings.size;
+  // The size of the single box
+ 
 
-  // An array defining the color intensity values to be used for each cube.
-  const blocks = cubeSettings.colorList;
+  const boxX = 1
+  const boxY = 2
+  const boxZ = 6
 
-  // Nested loops to create a 3D grid of cubes.
-  for (let x = 0; x < blocks.length; x++) {
-    for (let y = 0; y < blocks.length; y++) {
-      for (let z = 0; z < blocks.length; z++) {
-        // Define the geometry for each cube (a box in this case).
-        const geometry = new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize);
-        const r = blocks[x];
-        const g = blocks[y];
-        const b = blocks[z];
+  const r = 127
+  const g = 127
+  const b = 127
+  const geometry = new THREE.BoxGeometry(boxX, boxY, boxZ);
         const color = new THREE.Color(`rgb(${r}, ${g}, ${b})`);
 
         // Create a material for the cube with the specified color.
         const material = new THREE.MeshBasicMaterial({ color: color });
 
         // Create the cube mesh by combining the geometry and material.
-        const cube = new THREE.Mesh(geometry, material);
+        const box = new THREE.Mesh(geometry, material);
 
         // Set a custom property for grid position, used later for positioning.
-        cube.gridPosition = new THREE.Vector3(x, y, z);
+        box.gridPosition = new THREE.Vector3(boxX, boxY, boxZ);
 
-        // Add the cube to the cube group.
-        cubeGroup.add(cube);
-      }
-    }
-  }
+        // Add the box to the cube group.
+        cubeGroup.add(box);
+
 }
 
 /**
