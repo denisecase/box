@@ -54,7 +54,7 @@ export function initCubeGroup() {
   createCubes();
   //positionCubes();
   //lowerCubeGroup(); // Adjusts cube group's position
-  alignCubeGroup(); // Aligns cube group to desired orientation
+  // alignCubeGroup(); // Aligns cube group to desired orientation
 }
 
 /**
@@ -86,9 +86,8 @@ function setupCubeGroup() {
  */
 function createCubes() {
   // The size of the single box
- 
 
-  const boxX = 1
+  const boxX = 3
   const boxY = 2
   const boxZ = 6
 
@@ -96,19 +95,19 @@ function createCubes() {
   const g = 127
   const b = 127
   const geometry = new THREE.BoxGeometry(boxX, boxY, boxZ);
-        const color = new THREE.Color(`rgb(${r}, ${g}, ${b})`);
+  const color = new THREE.Color(`rgb(${r}, ${g}, ${b})`);
 
-        // Create a material for the cube with the specified color.
-        const material = new THREE.MeshBasicMaterial({ color: color });
+  // Create a material for the cube with the specified color.
+  const material = new THREE.MeshBasicMaterial({ color: color });
 
-        // Create the cube mesh by combining the geometry and material.
-        const box = new THREE.Mesh(geometry, material);
+  // Create the cube mesh by combining the geometry and material.
+  const box = new THREE.Mesh(geometry, material);
 
-        // Set a custom property for grid position, used later for positioning.
-        box.gridPosition = new THREE.Vector3(boxX, boxY, boxZ);
+  // Set a custom property for grid position, used later for positioning.
+  box.gridPosition = new THREE.Vector3(boxX, boxY, boxZ);
 
-        // Add the box to the cube group.
-        cubeGroup.add(box);
+  // Add the box to the cube group.
+  cubeGroup.add(box);
 
 }
 
