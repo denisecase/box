@@ -89,8 +89,11 @@ function setupCamera() {
 
   camera = new THREE.OrthographicCamera(
     cameraSettings.left, // ~ -50
-    cameraSettings.left, // ~ -50
-    cameraSettings.left, // ~ -50
+    cameraSettings.right, // ~ 50
+    cameraSettings.top, // ~ 50
+    cameraSettings.bottom, // ~ -50
+    cameraSettings.near, // ~ 0
+    cameraSettings.far, // ~ 100
   );
 
   // Setting the position of the camera in the 3D world space.

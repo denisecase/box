@@ -40,7 +40,7 @@ import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
 import { cubeSettings } from './cubeSettings.js';
 import { gapInfo } from './gapSettings.js';
 import { scene } from './appUI.js';
-//import { handleResize } from './resize.js';
+import { handleResize } from './resize.js';
 import { windowSettings } from "./windowSettings.js"; 
 
 export let cubeGroup;
@@ -89,14 +89,14 @@ function setupCubeGroup() {
 function createCubes() {
   // The size of the single box
 
-  // const boxX = canvasHeight;
-  // const boxY = canvasHeight;
-  // const boxZ = canvasHeight;
-
   const boxX = 0.01*windowSettings.availableHeight;
-  console.log(boxX);
+  console.log("boxX: ", boxX);
+  console.log("availableHeight in cubeUI: ", windowSettings.availableHeight);
   const boxY = 0.03*windowSettings.availableHeight;
+  console.log("boxY: ", boxY);
   const boxZ = 0.09*windowSettings.availableHeight;
+  console.log("boxZ: ", boxZ);
+
 
   const r = 255;
   const g = 0;
@@ -199,3 +199,7 @@ function alignCubeGroup() {
   // The rotation is applied relative to their current position.
   cubeGroup.rotateOnAxis(axis, angle);
 }
+
+// Attach the createCubes function events.
+window.addEventListener("cubeUI", createCubes);
+document.addEventListener("DOMContentLoaded", createCubes);

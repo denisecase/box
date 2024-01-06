@@ -10,13 +10,20 @@ import { cubeSettings } from './cubeSettings.js';
 import { gapInfo } from './gapSettings.js'; 
 
 export const cameraSettings = {
-  field_of_view: 50, // Static: The field of view of the camera in degrees.
+ /* field_of_view: 50, // Static: The field of view of the camera in degrees.
   near_clipping_plane: 0.1, // Static: The nearest distance from the camera at which objects will be rendered.
-  far_clipping_plane: 100, // Static: The farthest distance from the camera at which objects will be rendered.
+  far_clipping_plane: 100, // Static: The farthest distance from the camera at which objects will be rendered.*/
+
+  left: -50,
+  right: 50,
+  top: 50,
+  bottom: -50,
+  near: 0,
+  far: 100,
 
   camera_set_position_on_x_axis: 0, // Static: The initial position of the camera along the X-axis.
   camera_set_position_on_y_axis: 0, // Static: The initial position of the camera along the Y-axis.
-  camera_set_position_on_z_axis: -25, // Static: The initial position of the camera along the Z-axis.
+  camera_set_position_on_z_axis: -50, // Static: The initial position of the camera along the Z-axis.
 
  /* // Dynamic: The initial position of the camera along the Z-axis, calculated based on cube and gap settings.
   get camera_set_position_on_z_axis() {

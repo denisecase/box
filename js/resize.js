@@ -20,13 +20,32 @@ import { windowSettings } from "./windowSettings.js";
  * It also updates the renderer and camera settings to match the new canvas size.
  */
 export function handleResize() {
-  updateAvailableHeight
+
+  // Call updateAvailableHeight to update windowSettings.availableHeight
+  updateAvailableHeight();
+  //console.log("availableHeight in resize: ", windowSettings.availableHeight);
+
+ // updateAvailableHeight();
+
   // Adjust canvas container dimensions based on the available window space.
   const canvasContainer = document.getElementById("canvas-container");
 
   if (canvasContainer) {
     canvasContainer.style.height = `${windowSettings.availableHeight}px`;
   }
+
+/* From ChatGPT:
+
+  // Import necessary elements if not already imported
+// import { windowSettings } from "./windowSettings.js";
+
+export function handleResize() {
+  // Call updateAvailableHeight to update windowSettings.availableHeight
+  updateAvailableHeight();
+
+  // Rest of the code...
+}
+*/
 
   // Adjust Renderer and Camera to fit the new size of the canvas container.
   if (renderer && camera) {
@@ -43,7 +62,7 @@ export function handleResize() {
   }
 }
 
-function updateAvailableHeight() {
+export function updateAvailableHeight() {
   const headerHeight = document.querySelector("header")?.offsetHeight || 0;
   const footerHeight = document.querySelector("footer")?.offsetHeight || 0;
   const articleHeight = document.querySelector("article")?.offsetHeight || 0;
@@ -52,7 +71,9 @@ function updateAvailableHeight() {
   console.log("headerHeight: ", headerHeight);
   console.log("footerHeight: ", footerHeight);
   console.log("articleHeight: ", articleHeight);
-  console.log("availableHeight: ", windowSettings.availableHeight);
+ // console.log("availableHeight: ", windowSettings.availableHeight);
+
+  console.log("availableHeight in resize: ", windowSettings.availableHeight);
 }
 
 // Attach the handleResize function events.
