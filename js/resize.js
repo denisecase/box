@@ -1,16 +1,16 @@
 /**
  * Resize handling module.
- * This module is responsible for handling the resizing of the canvas. 
+ * This module is responsible for handling the resizing of the canvas.
  * It updates the renderer and camera whenever the user resizes their browser window.
  * This ensures that the canvas and its contents are appropriately scaled and displayed,
  * maintaining the correct aspect ratio and dimensions relative to the available browser window space.
  * It also ensures that the 3D scene is rendered with the updated settings.
- * 
+ *
  * It is imported and used in app.js.
  */
 
 import { camera, renderer, scene } from "./appUI.js";
-import { windowSettings } from "./windowSettings.js"; 
+import { windowSettings } from "./windowSettings.js";
 
 /**
  * Handles the resizing of the canvas container, renderer, and camera.
@@ -20,26 +20,18 @@ import { windowSettings } from "./windowSettings.js";
  * It also updates the renderer and camera settings to match the new canvas size.
  */
 export function handleResize() {
+  updateAvailableHeight
   // Adjust canvas container dimensions based on the available window space.
-  // const canvasContainer = document.getElementById("canvas-container");
+  const canvasContainer = document.getElementById("canvas-container");
 
-  // if (canvasContainer) {
-  //   // Calculate the available height by subtracting the heights of the header, footer, and article elements.
-  //   const headerHeight = document.querySelector("header")?.offsetHeight || 0;
-  //   const footerHeight = document.querySelector("footer")?.offsetHeight || 0;
-  //   const articleHeight = document.querySelector("article")?.offsetHeight || 0;
-
-  //   // set available height in the shared windowSetting file
-  //   windowSettings.availableHeight = window.innerHeight - headerHeight - footerHeight - articleHeight;
-  //   canvasContainer.style.height = `${windowSettings.availableHeight}px`;
-  // }
+  if (canvasContainer) {
+    canvasContainer.style.height = `${windowSettings.availableHeight}px`;
+  }
 
   // Adjust Renderer and Camera to fit the new size of the canvas container.
   if (renderer && camera) {
     const canvasWidth = canvasContainer ? canvasContainer.clientWidth : window.innerWidth;
-    const canvasHeight = canvasContainer
-      ? canvasContainer.clientHeight
-      : windowSettings.availableHeight;
+    const canvasHeight = canvasContainer ? canvasContainer.clientHeight : windowSettings.availableHeight;
 
     // Update the aspect ratio of the camera and the size of the renderer.
     camera.aspect = canvasWidth / canvasHeight;
@@ -52,21 +44,17 @@ export function handleResize() {
 }
 
 function updateAvailableHeight() {
-  // Adjust canvas container dimensions based on the available window space.
-  const canvasContainer = document.getElementById("canvas-container");
-
-  if (canvasContainer) {
-    // Calculate the available height by subtracting the heights of the header, footer, and article elements.
-    const headerHeight = document.querySelector("header")?.offsetHeight || 0;
-    const footerHeight = document.querySelector("footer")?.offsetHeight || 0;
-    const articleHeight = document.querySelector("article")?.offsetHeight || 0;
-
-    // set available height in the shared windowSetting file
-    windowSettings.availableHeight = window.innerHeight - headerHeight - footerHeight - articleHeight;
-    canvasContainer.style.height = `${windowSettings.availableHeight}px`;
-  }
+  const headerHeight = document.querySelector("header")?.offsetHeight || 0;
+  const footerHeight = document.querySelector("footer")?.offsetHeight || 0;
+  const articleHeight = document.querySelector("article")?.offsetHeight || 0;
+  windowSettings.availableHeight = window.innerHeight - headerHeight - footerHeight - articleHeight;
+  console.log("Window.innerHeight: ", window.innerHeight);
+  console.log("headerHeight: ", headerHeight);
+  console.log("footerHeight: ", footerHeight);
+  console.log("articleHeight: ", articleHeight);
+  console.log("availableHeight: ", windowSettings.availableHeight);
 }
 
-// Attach the handleResize function to window resize and DOMContentLoaded events.
+// Attach the handleResize function events.
 window.addEventListener("resize", handleResize);
-document.addEventListener("DOMContentLoaded", updateAvailableHeight);
+document.addEventListener("DOMContentLoaded", handleResize);
