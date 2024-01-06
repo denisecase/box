@@ -41,8 +41,8 @@ export function init() {
   setupCamera();
   setupRenderer();
   initCubeGroup();
-  animateOrRender();
   handleResize(); // Handles browser window resizing & maintain aspect ratio
+  animateOrRender();
 }
 
 /** Setup functions for the 3D environment
@@ -80,11 +80,17 @@ function setupScene() {
  */
 function setupCamera() {
   // BHJ
-  camera = new THREE.PerspectiveCamera(
+ /* camera = new THREE.PerspectiveCamera(
     cameraSettings.field_of_view, // ~50-75
     window.innerWidth / window.innerHeight, // aspect ratio
     cameraSettings.near_clipping_plane, //~0.1
     cameraSettings.far_clipping_plane, //~100-1000
+  );*/
+
+  camera = new THREE.OrthographicCamera(
+    cameraSettings.left, // ~ -50
+    cameraSettings.left, // ~ -50
+    cameraSettings.left, // ~ -50
   );
 
   // Setting the position of the camera in the 3D world space.

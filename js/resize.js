@@ -21,18 +21,18 @@ import { windowSettings } from "./windowSettings.js";
  */
 export function handleResize() {
   // Adjust canvas container dimensions based on the available window space.
-  const canvasContainer = document.getElementById("canvas-container");
+  // const canvasContainer = document.getElementById("canvas-container");
 
-  if (canvasContainer) {
-    // Calculate the available height by subtracting the heights of the header, footer, and article elements.
-    const headerHeight = document.querySelector("header")?.offsetHeight || 0;
-    const footerHeight = document.querySelector("footer")?.offsetHeight || 0;
-    const articleHeight = document.querySelector("article")?.offsetHeight || 0;
+  // if (canvasContainer) {
+  //   // Calculate the available height by subtracting the heights of the header, footer, and article elements.
+  //   const headerHeight = document.querySelector("header")?.offsetHeight || 0;
+  //   const footerHeight = document.querySelector("footer")?.offsetHeight || 0;
+  //   const articleHeight = document.querySelector("article")?.offsetHeight || 0;
 
-    // set available height in the shared windowSetting file
-    windowSettings.availableHeight = window.innerHeight - headerHeight - footerHeight - articleHeight;
-    canvasContainer.style.height = `${windowSettings.availableHeight}px`;
-  }
+  //   // set available height in the shared windowSetting file
+  //   windowSettings.availableHeight = window.innerHeight - headerHeight - footerHeight - articleHeight;
+  //   canvasContainer.style.height = `${windowSettings.availableHeight}px`;
+  // }
 
   // Adjust Renderer and Camera to fit the new size of the canvas container.
   if (renderer && camera) {
@@ -51,6 +51,22 @@ export function handleResize() {
   }
 }
 
+function updateAvailableHeight() {
+  // Adjust canvas container dimensions based on the available window space.
+  const canvasContainer = document.getElementById("canvas-container");
+
+  if (canvasContainer) {
+    // Calculate the available height by subtracting the heights of the header, footer, and article elements.
+    const headerHeight = document.querySelector("header")?.offsetHeight || 0;
+    const footerHeight = document.querySelector("footer")?.offsetHeight || 0;
+    const articleHeight = document.querySelector("article")?.offsetHeight || 0;
+
+    // set available height in the shared windowSetting file
+    windowSettings.availableHeight = window.innerHeight - headerHeight - footerHeight - articleHeight;
+    canvasContainer.style.height = `${windowSettings.availableHeight}px`;
+  }
+}
+
 // Attach the handleResize function to window resize and DOMContentLoaded events.
 window.addEventListener("resize", handleResize);
-document.addEventListener("DOMContentLoaded", handleResize);
+document.addEventListener("DOMContentLoaded", updateAvailableHeight);

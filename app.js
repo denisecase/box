@@ -39,7 +39,10 @@ import './js/cameraSettings.js';
 import './js/cubeUI.js';
 import './js/gapUI.js';
 import { init, animate } from './js/appUI.js';
+import { handleResize } from './js/resize.js';
 
 // Start the web app
+
+
 init();
 animate();
