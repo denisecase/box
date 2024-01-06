@@ -40,6 +40,8 @@ import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
 import { cubeSettings } from './cubeSettings.js';
 import { gapInfo } from './gapSettings.js';
 import { scene } from './appUI.js';
+//import { handleResize } from './resize.js';
+import { windowSettings } from "./windowSettings.js"; 
 
 export let cubeGroup;
 
@@ -54,7 +56,7 @@ export function initCubeGroup() {
   createCubes();
   //positionCubes();
   //lowerCubeGroup(); // Adjusts cube group's position
-  // alignCubeGroup(); // Aligns cube group to desired orientation
+  //alignCubeGroup(); // Aligns cube group to desired orientation
 }
 
 /**
@@ -87,13 +89,18 @@ function setupCubeGroup() {
 function createCubes() {
   // The size of the single box
 
-  const boxX = 1
-  const boxY = 2
-  const boxZ = 6
+  // const boxX = canvasHeight;
+  // const boxY = canvasHeight;
+  // const boxZ = canvasHeight;
 
-  const r = 127
-  const g = 127
-  const b = 127
+  const boxX = 0.1*windowSettings.availableHeight;
+ // console.log(boxX);
+  const boxY = 0.3*windowSettings.availableHeight;
+  const boxZ = 0.9*windowSettings.availableHeight/ 10;
+
+  const r = 255;
+  const g = 0;
+  const b = 0;
   const geometry = new THREE.BoxGeometry(boxX, boxY, boxZ);
   const color = new THREE.Color(`rgb(${r}, ${g}, ${b})`);
 
@@ -104,7 +111,8 @@ function createCubes() {
   const box = new THREE.Mesh(geometry, material);
 
   // Set a custom property for grid position, used later for positioning.
-  box.gridPosition = new THREE.Vector3(boxX, boxY, boxZ);
+  //box.gridPosition = new THREE.Vector3(boxX, boxY, boxZ);
+  box.gridPosition = new THREE.Vector3(0, 0, 0);
 
   // Add the box to the cube group.
   cubeGroup.add(box);

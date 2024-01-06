@@ -10,6 +10,7 @@
  */
 
 import { camera, renderer, scene } from "./appUI.js";
+import { windowSettings } from "./windowSettings.js"; 
 
 /**
  * Handles the resizing of the canvas container, renderer, and camera.
@@ -27,8 +28,10 @@ export function handleResize() {
     const headerHeight = document.querySelector("header")?.offsetHeight || 0;
     const footerHeight = document.querySelector("footer")?.offsetHeight || 0;
     const articleHeight = document.querySelector("article")?.offsetHeight || 0;
-    const availableHeight = window.innerHeight - headerHeight - footerHeight - articleHeight;
-    canvasContainer.style.height = `${availableHeight}px`;
+
+    // set available height in the shared windowSetting file
+    windowSettings.availableHeight = window.innerHeight - headerHeight - footerHeight - articleHeight;
+    canvasContainer.style.height = `${windowSettings.availableHeight}px`;
   }
 
   // Adjust Renderer and Camera to fit the new size of the canvas container.
@@ -36,7 +39,7 @@ export function handleResize() {
     const canvasWidth = canvasContainer ? canvasContainer.clientWidth : window.innerWidth;
     const canvasHeight = canvasContainer
       ? canvasContainer.clientHeight
-      : window.innerHeight - headerHeight - footerHeight;
+      : windowSettings.availableHeight;
 
     // Update the aspect ratio of the camera and the size of the renderer.
     camera.aspect = canvasWidth / canvasHeight;
