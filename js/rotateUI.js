@@ -107,8 +107,8 @@ export function setUserRotation(inputRotation) {
   rotateSettings.initialRotation = inputRotation;
 
   // Creating a rotation vector, which defines the axis of rotation.
-  // Here, the rotation is set to occur around the Z-axis (0, 0, 1).
-  const rotationVector = getNew3DVector(0, 0, 1);
+  // Here, the rotation is set to occur around the Y-axis (0, 1, 0).
+  const rotationVector = getNew3DVector(0, 1, 0);
 
   // Defining the rotation axis. It is the same as the rotation vector.
   let axis = rotationVector;

@@ -93,10 +93,10 @@ function createCubes() {
   // const boxY = canvasHeight;
   // const boxZ = canvasHeight;
 
-  const boxX = 0.1*windowSettings.availableHeight;
- // console.log(boxX);
-  const boxY = 0.3*windowSettings.availableHeight;
-  const boxZ = 0.9*windowSettings.availableHeight/ 10;
+  const boxX = 0.01*windowSettings.availableHeight;
+  console.log(boxX);
+  const boxY = 0.03*windowSettings.availableHeight;
+  const boxZ = 0.09*windowSettings.availableHeight;
 
   const r = 255;
   const g = 0;
