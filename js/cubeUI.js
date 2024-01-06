@@ -36,6 +36,8 @@
  * It is imported and used in appUI.js.
  * 
  */
+
+// cubeUI.js - Cube Group Setup Module
 import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
 import { cubeSettings } from './cubeSettings.js';
 import { gapInfo } from './gapSettings.js';
@@ -54,9 +56,7 @@ export let cubeGroup;
 export function initCubeGroup() {
   setupCubeGroup();
   createCubes();
-  //positionCubes();
-  //lowerCubeGroup(); // Adjusts cube group's position
-  //alignCubeGroup(); // Aligns cube group to desired orientation
+  positionCubes();
 }
 
 /**
@@ -89,14 +89,9 @@ function setupCubeGroup() {
 function createCubes() {
   // The size of the single box
 
-  const boxX = 0.01*windowSettings.availableHeight;
-  console.log("boxX: ", boxX);
-  console.log("availableHeight in cubeUI: ", windowSettings.availableHeight);
-  const boxY = 0.03*windowSettings.availableHeight;
-  console.log("boxY: ", boxY);
-  const boxZ = 0.09*windowSettings.availableHeight;
-  console.log("boxZ: ", boxZ);
-
+  const boxX = cubeSettings.size;
+  const boxY = cubeSettings.size;
+  const boxZ = cubeSettings.size;
 
   const r = 255;
   const g = 0;
@@ -119,6 +114,7 @@ function createCubes() {
 
 }
 
+
 /**
  * Positions the cubes in a grid formation within the cube group.
  *
@@ -140,64 +136,6 @@ export function positionCubes() {
       cube.gridPosition.z * (cubeSize + gapInfo.currentGap),
     );
   });
-}
-/**
- * Lowers the cube group's position in the 3D scene.
- *
- * This function adjusts the vertical position of the cube group by moving it downwards
- * along the Y-axis. This is typically done before changing the alignment of the cube group
- * to ensure it is positioned correctly in the scene.
- */
-function lowerCubeGroup() {
-  // Adjusting the position of the cubeGroup in the 3D world space.
-  // The position is set using three coordinates: (x, y, z).
-
-  // x: e.g., 0
-  // - The X coordinate. A value of 0 means the cube group's position along the X-axis
-  //   remains unchanged (at the origin).
-
-  // y: e.g., -2
-  // - The Y coordinate. Setting this to -2 moves the cube group 2 units downwards along
-  //   the Y-axis. Negative values in the Y-axis represent a downward movement.
-
-  // z: e.g., 0
-  // - The Z coordinate. A value of 0 means the cube group's position along the Z-axis
-  //   remains unchanged (at the origin).
-
-  // By setting the position to (0, -2, 0), the cube group is effectively moved straight down
-  // by 2 units without altering its position on the X and Z axes.
-  cubeGroup.position.set(
-    cubeSettings.lowerCubeGroupXCoordinate,
-    cubeSettings.lowerCubeGroupYCoordinate,
-    cubeSettings.lowerCubeGroupZCoordinate,
-  );
-}
-
-/**
- * Aligns the cube group in the 3D scene.
- *
- * This function is responsible for rotating the cube group so that a specific part
- * of it (in this case, the white cube) is aligned towards a particular direction
- * (akin to pointing towards the 'north pole' in a geographical context).
- */
-function alignCubeGroup() {
-  // Defining the axis of rotation.
-  // The axis is a vector represented by three values: (x, y, z).
-  // The values here create a diagonal axis across the X and Y axes.
-  // 'normalize()' is called to ensure that the axis vector has a unit length of 1.
-  // This standardizes the rotation effect regardless of the axis length.
-  let axis = new THREE.Vector3(1, -1, 0).normalize();
-
-  // Calculating the angle for rotation.
-  // 'Math.atan(Math.sqrt(2))' computes the angle needed to rotate the cube group
-  // so that the white cube aligns as intended.
-  // This specific calculation is based on the desired orientation of the cube group.
-  let angle = Math.atan(Math.sqrt(2));
-
-  // Rotating the cube group around the specified axis by the calculated angle.
-  // This method rotates the entire group of cubes, changing their orientation in the 3D space.
-  // The rotation is applied relative to their current position.
-  cubeGroup.rotateOnAxis(axis, angle);
 }
 
 // Attach the createCubes function events.

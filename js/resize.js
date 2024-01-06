@@ -8,9 +8,10 @@
  *
  * It is imported and used in app.js.
  */
-
+// resize.js - Resize handling module
 import { camera, renderer, scene } from "./appUI.js";
 import { windowSettings } from "./windowSettings.js";
+import { cubeGroup, positionCubes } from "./cubeUI.js";
 
 /**
  * Handles the resizing of the canvas container, renderer, and camera.
@@ -20,32 +21,24 @@ import { windowSettings } from "./windowSettings.js";
  * It also updates the renderer and camera settings to match the new canvas size.
  */
 export function handleResize() {
-
   // Call updateAvailableHeight to update windowSettings.availableHeight
   updateAvailableHeight();
-  //console.log("availableHeight in resize: ", windowSettings.availableHeight);
-
- // updateAvailableHeight();
+  console.log("availableHeight in resize: ", windowSettings.availableHeight);
 
   // Adjust canvas container dimensions based on the available window space.
   const canvasContainer = document.getElementById("canvas-container");
 
   if (canvasContainer) {
     canvasContainer.style.height = `${windowSettings.availableHeight}px`;
+    // Calculate the scale factor based on availableHeight
+    const scaleFactor = calculateScaleFactor();
+
+    // Scale the cube group
+    if (cubeGroup) {
+      cubeGroup.scale.set(scaleFactor, scaleFactor, scaleFactor);
+      positionCubes();
+    }
   }
-
-/* From ChatGPT:
-
-  // Import necessary elements if not already imported
-// import { windowSettings } from "./windowSettings.js";
-
-export function handleResize() {
-  // Call updateAvailableHeight to update windowSettings.availableHeight
-  updateAvailableHeight();
-
-  // Rest of the code...
-}
-*/
 
   // Adjust Renderer and Camera to fit the new size of the canvas container.
   if (renderer && camera) {
@@ -62,6 +55,13 @@ export function handleResize() {
   }
 }
 
+function calculateScaleFactor() {
+  // Example: Set the scale so that the group's height matches availableHeight
+  const baseCubeSize = 1; // Since cubes are 1x1x1
+  const desiredGroupHeight = windowSettings.availableHeight;
+  return desiredGroupHeight / baseCubeSize;
+}
+
 export function updateAvailableHeight() {
   const headerHeight = document.querySelector("header")?.offsetHeight || 0;
   const footerHeight = document.querySelector("footer")?.offsetHeight || 0;
@@ -71,8 +71,6 @@ export function updateAvailableHeight() {
   console.log("headerHeight: ", headerHeight);
   console.log("footerHeight: ", footerHeight);
   console.log("articleHeight: ", articleHeight);
- // console.log("availableHeight: ", windowSettings.availableHeight);
-
   console.log("availableHeight in resize: ", windowSettings.availableHeight);
 }
 

@@ -27,7 +27,7 @@ import { handleResize } from './resize.js';
 import { gapInfo, animateGap } from './gapSettings.js';
 import { rotateSettings } from './rotateSettings.js';
 import { cameraSettings } from './cameraSettings.js';
-import { initCubeGroup, cubeGroup, positionCubes } from './cubeUI.js';
+import { initCubeGroup, cubeGroup } from './cubeUI.js';
 import { animateRotation } from './rotateUI.js';
 export let scene, camera, renderer;
 
@@ -178,7 +178,7 @@ export function animate() {
   // Apply gap and rotation animations as needed.
   animateGap();
   animateRotation();
-  positionCubes();
+  //positionCubes();
 
   // Render the updated scene.
   renderer.render(scene, camera);
