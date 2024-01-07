@@ -6,7 +6,7 @@
  */
 
 import { gapInfo } from './gapSettings.js';
-import { animateOrRender } from './appUI.js';
+import { animateOrRender } from "../appUI.js";
 
 // Get references to HTML elements for gap control.
 const gapAnimationCheckbox = document.getElementById('gapAnimationCheckbox');

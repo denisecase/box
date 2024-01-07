@@ -7,14 +7,13 @@
  * NOTE: The two sliders in index.html expect a value between 0 & 1.
  */
 
-
 export const gapInfo = {
-  doAnimateGap: false,  // Flag to enable/disable gap animation.
-  minGap: 0.0,  // The minimum allowable gap between cubes.
-  maxGap: 1.0,  // The maximum allowable gap between cubes.
-  initialGap: 0.2,  // The initial gap size between cubes.
-  deltaGap: 0.005,  // The amount by which the gap changes each frame.
-  
+  doAnimateGap: false, // Flag to enable/disable gap animation.
+  minGap: 0.0, // The minimum allowable gap between cubes.
+  maxGap: 1.0, // The maximum allowable gap between cubes.
+  initialGap: 0.2, // The initial gap size between cubes.
+  deltaGap: 0.005, // The amount by which the gap changes each frame.
+
   // Getter for currentGap to always return the dynamically calculated gap
   get currentGap() {
     return _currentGap;
@@ -23,8 +22,8 @@ export const gapInfo = {
   // Setter for currentGap to update the internal gap value
   set currentGap(value) {
     _currentGap = value;
-  }
-};
+  },
+}
 
 /**
  * Animates the gap between the cubes in the 3D scene.

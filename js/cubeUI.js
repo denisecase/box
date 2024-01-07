@@ -25,119 +25,62 @@
      git push
 */
 
-/**
- * This file contains the functions for setting up the main cube group in the 3D scene.
- * It sets up the cube group, creates and positions the cubes, and aligns the cube group.
- * It lowers the cube group's position in the 3D scene and 
- * aligns it to the desired orientation (with the white north pole on top).
- * 
- * It exports the cube group for use in other files.
- * 
- * It is imported and used in appUI.js.
- * 
- */
-
 // cubeUI.js - Cube Group Setup Module
-import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
-import { cubeSettings } from './cubeSettings.js';
-import { gapInfo } from './gapSettings.js';
-import { scene } from './appUI.js';
-import { handleResize } from './resize.js';
-import { windowSettings } from "./windowSettings.js"; 
+import * as THREE from "https://unpkg.com/three@0.160.0/build/three.module.js";
+import { gapInfo } from "./animate/gapSettings.js";
+import { scene } from "./appUI.js";
+import { handleResize } from "./resize.js";
+import { cameraSettings, cubeSettings, windowSettings } from "./appConfig.js";
 
 export let cubeGroup;
 
-/**
- * Initializes the cube group by setting up the group, creating cubes, positioning them,
- * adjusting the cube group's position, and aligning it to the desired orientation.
- * 
- * It is exported and used by appUI.js.
- */
 export function initCubeGroup() {
-  setupCubeGroup();
-  createCubes();
-  positionCubes();
-}
-
-/**
- * Initializes and configures the cube group in the 3D scene.
- *
- * This function is responsible for creating a group of cubes and adding it to the scene.
- * A group in Three.js allows you to manage multiple objects as a single entity,
- * making it easier to control their overall behavior and position.
- */
-function setupCubeGroup() {
-  // Creating a new Group object.
-  // A Group is a collection of objects that can be manipulated together.
-  // In this case, cubeGroup will hold all the individual cubes, allowing us to perform
-  // operations on the entire set of cubes at once.
   cubeGroup = new THREE.Group();
 
-  // Adding the cube group to the scene.
-  // This makes the group (and all of its contained objects) a part of the 3D world,
-  // allowing it to be rendered and interacted with within the scene.
-  scene.add(cubeGroup);
-  if (!cubeGroup) {
-    console.error('Cube group is not initialized');
-    return;
-  }
+  const geometry = new THREE.BoxGeometry(cubeSettings.boxX, cubeSettings.boxY, cubeSettings.boxZ);
+  const material = new THREE.MeshBasicMaterial({ color: "red" });
+  const cube = new THREE.Mesh(geometry, material);
+  scene.add(cube); // Add cube to the scene
+
+  // cube.gridPosition = new THREE.Vector3(0, 0, 0);
+  // cubeGroup.add(cube);
+
+  // console.log("cube.position: ", cube.position);
+  // console.log("cubeGroup.position: ", cubeGroup.position);
+  // scene.add(cubeGroup);
+  scaleCubeGroup();
 }
 
-/**
- * Creates a single box.
- */
-function createCubes() {
-  // The size of the single box
-
-  const boxX = cubeSettings.size;
-  const boxY = cubeSettings.size;
-  const boxZ = cubeSettings.size;
-
-  const r = 255;
-  const g = 0;
-  const b = 0;
-  const geometry = new THREE.BoxGeometry(boxX, boxY, boxZ);
-  const color = new THREE.Color(`rgb(${r}, ${g}, ${b})`);
-
-  // Create a material for the cube with the specified color.
-  const material = new THREE.MeshBasicMaterial({ color: color });
-
-  // Create the cube mesh by combining the geometry and material.
-  const box = new THREE.Mesh(geometry, material);
-
-  // Set a custom property for grid position, used later for positioning.
-  //box.gridPosition = new THREE.Vector3(boxX, boxY, boxZ);
-  box.gridPosition = new THREE.Vector3(0, 0, 0);
-
-  // Add the box to the cube group.
-  cubeGroup.add(box);
-
-}
-
-
-/**
- * Positions the cubes in a grid formation within the cube group.
- *
- * This function arranges all the cubes in the cube group based on their grid positions,
- * ensuring they are spaced out evenly according to the specified gap.
- * 
- * It is exported and used by appUI.js.
- */
 export function positionCubes() {
-  // The size of each cube, as defined in the cube settings.
-  const cubeSize = cubeSettings.size;
+  // const cubeSize = cubeSettings.size;
+  console.log("cubeSettings.boxX: ", cubeSettings.boxX);
+  console.log("cubeSettings.boxY: ", cubeSettings.boxY);
+  console.log("cubeSettings.boxZ: ", cubeSettings.boxZ);
+  console.log("gapInfo.currentGap: ", gapInfo.currentGap);
 
-  // Iterate over each cube in the cube group and set its position.
   cubeGroup.children.forEach((cube) => {
-    // Position each cube based on its grid position and the defined gap.
     cube.position.set(
-      cube.gridPosition.x * (cubeSize + gapInfo.currentGap),
-      cube.gridPosition.y * (cubeSize + gapInfo.currentGap),
-      cube.gridPosition.z * (cubeSize + gapInfo.currentGap),
+      cube.gridPosition.x * (cubeSettings.boxX + gapInfo.currentGap),
+      cube.gridPosition.y * (cubeSettings.boxY + gapInfo.currentGap),
+      cube.gridPosition.z * (cubeSettings.boxZ + gapInfo.currentGap)
     );
+    console.log("cube.position: ", cube.position);
   });
 }
 
-// Attach the createCubes function events.
-window.addEventListener("cubeUI", createCubes);
-document.addEventListener("DOMContentLoaded", createCubes);
+export function scaleCubeGroup() {
+  const windowHeight = windowSettings.availableHeight;
+  const targetCubeGroupHeight = windowHeight * windowSettings.fractionToCubeGroup;
+  const scaleY = targetCubeGroupHeight / cubeSettings.boxY;
+  cubeGroup.scale.set(scaleY, scaleY, scaleY); // Uniform scaling
+}
+
+function calculateVerticalScaleFactor() {
+  // Retrieve the camera's frustum height
+  const frustumHeight = cameraSettings.top - cameraSettings.bottom;
+  const targetCubeHeight = frustumHeight * windowSettings.fractionToCubeGroup;
+
+  // Calculate scale factor based on original and target height
+  const originalHeight = cubeSettings.boxY;
+  return targetCubeHeight / originalHeight;
+}
