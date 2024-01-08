@@ -12,12 +12,12 @@ export let scene, camera, renderer, controls;
 
 export function init() {
   setupScene();
-  addTemporaryAxesHelper();
+ // addTemporaryAxesHelper();
   setupCamera();
   setupRenderer();
-  setupControls();  // move the camera with your mouse
+ // setupControls();  // move the camera with your mouse
   initCubeGroup();
-  logCameraPosition();
+ // logCameraPosition();
   handleResize(); // resize for window
   animateOrRender(); // animate or render
 }
